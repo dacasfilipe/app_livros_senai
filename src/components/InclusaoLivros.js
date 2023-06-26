@@ -1,17 +1,28 @@
 //Componente para incluir livros no banco de dados
 //declaração da função do componente IncluirLivros
 import { useForm } from "react-hook-form";
+import { api } from "../config_axios";
+import { useState } from "react";
 //register serve para definir os nomes dos campos do form (validações)
 //handleSubmit, para indicar o método a ser acionado no evento onSubmit do form
 //form onSubmit={handleSubmit(salvar)}
 const InclusaoLivros = () => {
     const{ register, handleSubmit } = useForm();
+    const [aviso, setAviso] = useState("");
     //método chamado ao enviar form onSubmit
-    const salvar = (campos) => {  
-    //JSON.stringify() converte um objeto javascript para uma String JSON 
-    alert(JSON.stringify(campos));
-    //lá no html puro usavamos titulo.value para pegar valor
+    const salvar = async (campos) => {  
+        try {
+                    const response = await api.post("livros", campos);
+                    setAviso(`Livro cadastrado com sucesso!"
+                    ${response.data.id}`);
+                } catch (error) {
+                    setAviso("Erro ao cadastrar livro!");
+                }
     }
+    //JSON.stringify() converte um objeto javascript para uma String JSON 
+    //alert(JSON.stringify(campos));
+    //lá no html puro usavamos titulo.value para pegar valor
+    
     //aqui é o que vai ser exibido em tela
     return ( 
         <div className="container">
