@@ -24,7 +24,7 @@ useEffect(() => {
 
 const filtrarLista = async (campos) => {
     try{
-        const lista = await inAxios.get(`livros/filtro/${campos.palavra}`);
+        const lista = await api.get(`livros/filtro/${campos.palavra}`);
         lista.data.length
         ? setLivros(lista.data)
         : alert("Não há livros cadastrados com a palavra chave pesquisada");
@@ -40,7 +40,7 @@ const excluir = async(id,titulo) => {
         return;
     }
     try{
-        await inAxios.delete(`livros/${id}`);
+        await api.delete(`livros/${id}`);
         setLivros(livros.filter(livro => livro.id !== id));
         
     }catch(error){
@@ -55,7 +55,7 @@ const alterar = async (id,titulo,index) => {
         return;
     }
     try{
-        await inAxios.put(`livros/${id}`,{preco: novoPreco});
+        await api.put(`livros/${id}`,{preco: novoPreco});
         const livrosAtualizados = [...livros];
         livrosAtualizados[index].preco = novoPreco;
         setLivros(livrosAtualizados);
