@@ -31,8 +31,6 @@ const filtrarLista = async (campos) => {
     }catch(error){
         alert(`Erro: ..Não foi possível obter os dados: ${error}`);
     }
-    
-
 }
 
 const excluir = async(id,titulo) => {
@@ -51,8 +49,8 @@ const excluir = async(id,titulo) => {
 //alterar os registros
 const alterar = async (id,titulo,index) => {
     const novoPreco = Number(prompt(`Digite o novo preço do livro ${titulo}`));
-    if (isNaN(novoPreco)){
-        alert('Digite um número!')
+    if (isNaN(novoPreco) || novoPreco <= 0 ) {
+        alert('Digite um número e diferente de 0!')
         return;
     }
     try{//captura os erros 
@@ -108,7 +106,7 @@ const alterar = async (id,titulo,index) => {
                         preco={livro.preco}
                         foto={livro.foto}
                         excluirClick={()=>excluir(livro.id,livro.titulo)}
-                        alterarClick={()=>alterar(livro.id,livro.titulo,livro.id)}
+                        alterarClick={()=>alterar(livro.id,livro.titulo)}
                     />
                 ))}
             </tbody>
